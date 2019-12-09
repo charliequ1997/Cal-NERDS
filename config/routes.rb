@@ -1,16 +1,20 @@
 Rails.application.routes.draw do
 
+  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   get 'static/index'
 
   get 'dashboard/index'
 
   # resources :schedules
+  get 'schedules/overview', to: 'schedules#overview'
+  
   get 'sessions/create'
   delete 'sessions', to: 'sessions#destroy'
 
   resources :users do
     resources :schedules  
   end
+  resources :schedules
 
   # Routes for Google authentication
   get 'auth/:provider/callback', to: 'sessions#create'

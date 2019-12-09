@@ -11,6 +11,21 @@ class User < ActiveRecord::Base
   end
 
 
+	def self.first_name user
+		user.name.rpartition(' ').first
+	end
+	
+	def self.last_name user
+		user.name.rpartition(' ').last
+	end
+
+	def self.get_admins
+		User.where(admin: true)
+	end
+
+	def self.get_non_admins
+		User.where(admin: false, auth: true)
+	end
 
 	# 	User.where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
 	# 	  user.provider = auth.provider
